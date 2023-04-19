@@ -1,7 +1,7 @@
 <template>
-  <before-starts />
+  <beforeStarts/>
 </template>
 
 <script setup>
-import BeforeStarts from "./components/beforeStarts.vue";
+import beforeStarts from "./components/beforeStarts.vue";
 </script>

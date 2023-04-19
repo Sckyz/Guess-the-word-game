@@ -1,53 +1,51 @@
 <template>
   <div v-if="beforeStartsGame" class="row flex-center">
-    <h3>
-      <q-btn-dropdown color="info" size="25px" label="How To Play">
-        <q-list class="bg-accent">
-          <q-item>
-            <q-item-section>
-              <q-item-label> I. Click the "Start Game" button </q-item-label>
-            </q-item-section>
-          </q-item>
+    <q-btn-dropdown color="info" size="25px" label="How To Play">
+      <q-list class="bg-accent">
+        <q-item>
+          <q-item-section>
+            <q-item-label> I. Click the "Start Game" button </q-item-label>
+          </q-item-section>
+        </q-item>
 
-          <q-item>
-            <q-item-section>
-              <q-item-label
-                >II. You will see written in a box: "type a word"</q-item-label
-              >
-            </q-item-section>
-          </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label
+              >II. You will see written in a box: "type a word"</q-item-label
+            >
+          </q-item-section>
+        </q-item>
 
-          <q-item>
-            <q-item-section>
-              <q-item-label
-                >III. Add a word of your choosing into the box</q-item-label
-              >
-            </q-item-section>
-          </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label
+              >III. Add a word of your choosing into the box</q-item-label
+            >
+          </q-item-section>
+        </q-item>
 
-          <q-item>
-            <q-item-section>
-              <q-item-label
-                >IV. Press "enter", or click the button "play", to start
-                playing</q-item-label
-              >
-            </q-item-section>
-          </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label
+              >IV. Press "enter", or click the button "play", to start
+              playing</q-item-label
+            >
+          </q-item-section>
+        </q-item>
 
-          <q-item>
-            <q-item-section>
-              <q-item-label
-                >V. Next, have a friend try to guess the word by adding letters
-                into the dashes</q-item-label
-              >
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
-      <br />
-      <br />
-      <img src="./imgs/catsssss.jpeg" alt="gamerCat" id="logo" />
-    </h3>
+        <q-item>
+          <q-item-section>
+            <q-item-label
+              >V. Next, have a friend try to guess the word by adding letters
+              into the dashes</q-item-label
+            >
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
+    <q-separator dark />
+    <q-img src="../../public/imgs/catsssss.jpeg" width="50vw" />
+    <q-separator vertical dark />
     <q-btn
       @click="startGame"
       class="row flex-center"
@@ -62,21 +60,36 @@
   </div>
   <div v-if="showWordsection" class="flex flex-center">
     <h2>Add the word you're thinking</h2>
-    <input type="text" v-model="wordField" autocomplete="off" />
-    <button @click="addToArray">Play game</button>
-    <img src="./imgs/cat.jpeg" />
+    <q-input
+      rounded
+      standout
+      type="text"
+      v-model="wordField"
+      autocomplete="off"
+    />
+    <q-btn
+      @click="addToArray"
+      :ripple="{ color: 'purple' }"
+      push
+      color="info"
+      text-color="white"
+      square
+      label="Play Game"
+      size="20px"
+    />
+    <q-img src="../../public/imgs/cat.jpeg" width="43vw" />
   </div>
   <div v-if="showGame" class="row flex-center">
     <h3>You have 6 chances, good luck :)</h3>
-    <h3>The word I was thinking is:</h3>
-    <h1 v-if="showWord">{{ rigthWord }}</h1>
     <div
       v-for="letter in word"
       style="border-bottom: 1px solid black; margin: 3px; display: inline"
     >
-      <span style="visibility: hidden">{{ letter }}</span>
+      <span>{{ letter }}</span>
     </div>
-    <input
+    <q-input
+      rounded
+      standout
       type="text"
       v-model="letterField"
       autocomplete="off"
@@ -84,50 +97,75 @@
       minlength="1"
     />
     <q-btn round color="purple" glossy label="TRY" @click="playGame" />
-    <p v-if="chancesAmount">Chances left:{{ chances }}</p>
+    <p v-if="chancesAmount">Chances left: {{ chances }}</p>
     <br />
     <p>Wrong letters: {{ fails }}</p>
   </div>
   <div v-if="endGameWin">
     <p>Congrats, you have guessed correctly!</p>
-    <img src="./imgs/happyCats.jpeg" />
+    <h1>The word I was thinking is:{{ rigthWord }}</h1>
+    <div v-if="playAgain">
+      <q-btn
+        @click="PlayAgain"
+        :ripple="{ color: 'purple' }"
+        push
+        color="info"
+        text-color="white"
+        square
+        label="Play Again"
+        size="20px"
+      />
+    </div>
+    <q-img src="../../public/imgs/happyCats.jpeg" width="30vw" />
   </div>
   <div v-if="endGameLost">
-    <p>
-      Oh no! Better luck next time.
-      <img src="./imgs/catSad.jpeg" />
-    </p>
+    <p>Oh no! Better luck next time.</p>
+    <h1>The word I was thinking is:{{ rigthWord }}</h1>
+    <q-img src="../../public/imgs/catSad.jpeg" width="30vw" />
+    <div v-if="playAgain">
+      <q-btn
+        @click="PlayAgain"
+        :ripple="{ color: 'purple' }"
+        push
+        color="info"
+        text-color="white"
+        square
+        label="Play Again"
+        size="20px"
+      />
+    </div>
+    <q-img src="../../public/imgs/happyCats.jpeg" :ratio="1" />
   </div>
-
-  <div v-if="playAgain"><button @click="PlayAgain">Play Again</button></div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
 
 const fails = computed(() => {
   return failedTries;
 });
 const rigthWord = computed(() => {
-  return word;
+  return word.value;
 });
+
+const $q = useQuasar();
 const reg = /^[ça-z]*$/;
 const showWordsection = ref(false);
 const endGameWin = ref(false);
 const endGameLost = ref(false);
 const showGame = ref(false);
-const showWord = ref(false);
 const playAgain = ref(false);
 const beforeStartsGame = ref(true);
 const chancesAmount = ref(true);
+const chances = ref(6);
 const wordField = ref("");
 const letterField = ref("");
+const word = ref("");
+const letters = ref([]);
 const failedTries = [];
 const arr2 = [];
 const tries = [];
-let letters = [];
-let word;
-let chances = 6;
 
 function startGame() {
   beforeStartsGame.value = !beforeStartsGame.value;
@@ -136,49 +174,65 @@ function startGame() {
 
 function addToArray() {
   if (wordField.value === "") {
-    alert("There's no word in there :(");
-    return;
+    $q.notify({
+      message: "There's no word in there :(",
+      color: "accent",
+      position: "center",
+    });
+    return true;
   }
   if (!reg.test(wordField.value)) {
-    alert(
-      "That character is not allowed in this game :( Please enter a lower cased letter that belongs in our alphabet, with no spaces."
-    );
+    $q.notify({
+      message:
+        "That character is not allowed in this game :(  Please enter a lower cased letter that belongs in our alphabet, with no spaces.",
+      color: "accent",
+      position: "center",
+    });
     cleanField();
-    return;
+    return true;
   }
-  word = wordField.value;
-  letters = word.split("");
-  console.log(letters);
+  word.value = wordField.value;
+  letters.value = word.value.split("");
   showWordsection.value = !showWordsection.value;
   showGame.value = !showGame.value;
 }
 
 function playGame() {
   if (letterField.value === "") {
-    alert("There's no letters in there :(");
-    return;
+    $q.notify({
+      message: "There's no word in there :(",
+      color: "accent",
+      position: "center",
+    });
+    return true;
   }
-  console.log(letterField.value);
   if (!reg.test(letterField.value)) {
-    alert(
-      "That character is not allowed in this game :( Please enter a lower cased letter that belongs in our alphabet, with no spaces."
-    );
+    $q.notify({
+      message:
+        "That character is not allowed in this game :(  Please enter a lower cased letter that belongs in our alphabet, with no spaces.",
+      color: "accent",
+      position: "center",
+    });
     cleanField();
-    return;
+    return true;
   }
   if (inTries(letterField.value)) {
-    alert("This letter was already tested, please try another one");
+    $q.notify({
+      message: "This letter was already tested, please try another one",
+      color: "accent",
+      position: "center",
+    });
     cleanField();
-    return;
+    return true;
   }
   tries.push(letterField.value);
   if (inWords(letterField.value)) {
     showLetters(letterField.value);
     cleanField();
     isAlive();
-    return;
+    return true;
   }
-  chances--;
+  chances.value--;
   failedTries.push(letterField.value);
   cleanField();
   isAlive();
@@ -188,7 +242,7 @@ function isAlive() {
   if (failedTries.length > 5) {
     lost();
   }
-  areEqual(letters, arr2);
+  areEqual(letters.value, arr2);
 }
 
 function areEqual(array1, array2) {
@@ -198,18 +252,16 @@ function areEqual(array1, array2) {
 }
 
 function won() {
-  showWord.value = !showWord.value;
   endGameWin.value = !endGameWin.value;
-  showGame.value = !showGame.value;
   playAgain.value = !playAgain.value;
+  showGame.value = !showGame.value;
   changeBackgroundColor("#13D513");
 }
 
 function lost() {
-  showWord.value = !showWord.value;
   endGameLost.value = !endGameWin.value;
-  showGame.value = !showGame.value;
   playAgain.value = !playAgain.value;
+  showGame.value = !showGame.value;
   changeBackgroundColor("#B60606");
 }
 
@@ -241,10 +293,16 @@ function inTries(char) {
 }
 
 function inWords(char) {
-  return checkIfInside(word.split(""), char);
+  return checkIfInside(word.value.split(""), char);
 }
 
 function changeBackgroundColor(color) {
   document.body.style.background = color;
 }
 </script>
+
+<style scoped>
+span {
+  visibility: hidden;
+}
+</style>
