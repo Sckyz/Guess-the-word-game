@@ -1,12 +1,14 @@
 <template>
-  <div v-if="beforeStartsGame" class="row flex-center">
-    <q-btn-dropdown color="info" size="25px" label="How To Play">
-      <q-list class="bg-accent">
+  <div v-if="beforeStartsGame" class="before">
+    <span class="title">Guess The Word I'm Thinking Game</span>
+    <q-btn-dropdown class="rules" label="How To Play">
+      <q-list class="items">
         <q-item>
           <q-item-section>
             <q-item-label> I. Click the "Start Game" button </q-item-label>
           </q-item-section>
         </q-item>
+        <q-separator horizontal black />
 
         <q-item>
           <q-item-section>
@@ -15,6 +17,7 @@
             >
           </q-item-section>
         </q-item>
+        <q-separator horizontal black />
 
         <q-item>
           <q-item-section>
@@ -23,15 +26,16 @@
             >
           </q-item-section>
         </q-item>
+        <q-separator horizontal black />
 
         <q-item>
           <q-item-section>
             <q-item-label
-              >IV. Press "enter", or click the button "play", to start
-              playing</q-item-label
+              >IV. Click the button "play" to start playing</q-item-label
             >
           </q-item-section>
         </q-item>
+        <q-separator horizontal black />
 
         <q-item>
           <q-item-section>
@@ -43,24 +47,19 @@
         </q-item>
       </q-list>
     </q-btn-dropdown>
-    <q-separator dark />
-    <q-img src="../../public/imgs/catsssss.jpeg" width="50vw" />
-    <q-separator vertical dark />
+    <q-img src="/imgs/catsssss.jpeg" class="cats" />
     <q-btn
       @click="startGame"
-      class="row flex-center"
-      :ripple="{ color: 'purple' }"
+      class="start"
       push
-      color="info"
-      text-color="white"
       square
       label="Start Game"
-      size="20px"
     ></q-btn>
   </div>
-  <div v-if="showWordsection" class="flex flex-center">
-    <h2>Add the word you're thinking</h2>
+  <div v-if="showWordsection" class="column items-center">
+    <span>Add the word you're thinking</span>
     <q-input
+      class="word"
       rounded
       standout
       type="text"
@@ -69,71 +68,73 @@
     />
     <q-btn
       @click="addToArray"
+      class="addWord"
       :ripple="{ color: 'purple' }"
       push
-      color="info"
-      text-color="white"
       square
       label="Play Game"
-      size="20px"
     />
-    <q-img src="../../public/imgs/cat.jpeg" width="43vw" />
+    <q-img src="/imgs/cat.jpeg" class="gamerCat" />
   </div>
-  <div v-if="showGame" class="row flex-center">
-    <h3>You have 6 chances, good luck :)</h3>
-    <div
-      v-for="letter in word"
-      style="border-bottom: 1px solid black; margin: 3px; display: inline"
+  <div v-if="showGame">
+    <span>You have 6 chances, good luck :)</span>
+    <div class="dashes column items-center" v-for="letter in word">
+      <span class="letterInDashes">{{ letter }}</span>
+    </div>
+    <div class="row flex-center">
+      <q-input
+        class="letter"
+        rounded
+        standout
+        type="text"
+        v-model="letterField"
+        autocomplete="off"
+        maxlength="1"
+        minlength="1"
+      />
+      <q-btn
+        round
+        color="purple"
+        glossy
+        label="TRY"
+        @click="playGame"
+        class="try"
+      />
+    </div>
+    <span class="column items-center" v-if="chancesAmount"
+      >Chances left: {{ chances }}</span
     >
-      <span>{{ letter }}</span>
-    </div>
-    <q-input
-      rounded
-      standout
-      type="text"
-      v-model="letterField"
-      autocomplete="off"
-      maxlength="1"
-      minlength="1"
-    />
-    <q-btn round color="purple" glossy label="TRY" @click="playGame" />
-    <p v-if="chancesAmount">Chances left: {{ chances }}</p>
-    <br />
-    <p>Wrong letters: {{ fails }}</p>
+    <span class="column items-center">Wrong letters: {{ fails }}</span>
   </div>
-  <div v-if="endGameWin">
-    <p>Congrats, you have guessed correctly!</p>
-    <h1>The word I was thinking is:{{ rigthWord }}</h1>
+  <div v-if="endGameWin" class="column items-center">
+    <span>Congrats, you have guessed correctly!</span>
+    <span>The word I was thinking is: {{ rigthWord }}</span>
     <div v-if="playAgain">
       <q-btn
+        class="again"
         @click="PlayAgain"
         :ripple="{ color: 'purple' }"
         push
-        color="info"
-        text-color="white"
         square
         label="Play Again"
-        size="20px"
       />
     </div>
-    <q-img src="../../public/imgs/happyCats.jpeg" width="30vw" />
+    <q-img src="/imgs/happyCats.jpeg" class="happy" />
   </div>
-  <div v-if="endGameLost">
-    <p>Oh no! Better luck next time.</p>
-    <h1>The word I was thinking is:{{ rigthWord }}</h1>
-    <q-img src="../../public/imgs/catSad.jpeg" width="30vw" />
+  <div v-if="endGameLost" class="column items-center">
+    <span>Oh no! Better luck next time.</span>
+    <span>The word I was thinking is:{{ rigthWord }}</span>
     <div v-if="playAgain">
       <q-btn
         @click="PlayAgain"
+        class="again"
         :ripple="{ color: 'purple' }"
         push
-        color="info"
-        text-color="white"
         square
         label="Play Again"
-        size="20px"
       />
     </div>
+    <q-img src="/imgs/catSad.jpeg" class="sad" />
   </div>
 </template>
 
@@ -274,7 +275,7 @@ function cleanField() {
 }
 
 function showLetters(trier) {
-  for (const elements of document.querySelectorAll("span")) {
+  for (const elements of document.getElementsByClassName("letterInDashes")) {
     if (elements.textContent.includes(trier)) {
       elements.style.visibility = "visible";
       arr2.push(elements.textContent);
@@ -302,6 +303,82 @@ function changeBackgroundColor(color) {
 
 <style scoped>
 span {
+  font-size: 80px;
+}
+.title {
+  font-size: 100px;
+}
+.letterInDashes {
   visibility: hidden;
+}
+.dashes {
+  border-bottom: 1px solid black;
+  margin: 3px;
+  display: inline;
+}
+.rules {
+  background-color: #6618be;
+  color: white;
+  font-size: medium;
+  height: 60px;
+  float: left;
+  margin-left: 120px;
+}
+.items {
+  background-color: #bb84c6;
+  padding: 10px;
+}
+.items :hover {
+  background-color: #c6a1e9;
+}
+.cats {
+  width: 30vw;
+  margin-left: 50px;
+}
+.gamerCat {
+  width: 30vw;
+  text-align: center;
+}
+.happy {
+  width: 30vw;
+  text-align: center;
+}
+.sad {
+  width: 30vw;
+  text-align: center;
+}
+.before {
+  text-align: center;
+}
+.start {
+  background-color: #6618be;
+  color: white;
+  font-size: medium;
+  height: 60px;
+  float: right;
+  margin-right: 320px;
+}
+.addWord {
+  background-color: #482d61;
+  color: bisque;
+}
+.word {
+  font-size: 20px;
+}
+.letter {
+  font-size: 30px;
+  width: 60px;
+}
+.again {
+  background-color: #6618be;
+  color: white;
+  font-size: medium;
+  height: 60px;
+}
+.try {
+  background-color: #6618be;
+  color: white;
+  font-size: medium;
+  height: 40px;
 }
 </style>
