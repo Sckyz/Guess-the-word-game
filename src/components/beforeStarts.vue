@@ -134,7 +134,6 @@
         size="20px"
       />
     </div>
-    <q-img src="../../public/imgs/happyCats.jpeg" :ratio="1" />
   </div>
 </template>
 
