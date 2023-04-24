@@ -1,5 +1,5 @@
 <template>
-  <BeforeStarts/>
+  <BeforeStarts />
 </template>
 
 <script setup>
