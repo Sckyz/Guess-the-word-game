@@ -1,65 +1,77 @@
 <template>
-  <div v-if="beforeStartsGame" class="before">
+  <div v-if="beforeStartsGame" class="columnn flex-center q-mt-xl">
     <span class="title">Guess The Word I'm Thinking Game</span>
-    <q-btn-dropdown class="rules" label="How To Play">
-      <q-list class="items">
-        <q-item>
-          <q-item-section>
-            <q-item-label> I. Click the "Start Game" button </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-separator horizontal black />
+    <div class="float-right">
+      <q-btn-dropdown
+        label="How To Play"
+        class="bg-info text-white q-mr-xl q-mt-xl"
+        size="20px"
+      >
+        <q-list class="bg-positive">
+          <q-item clickable>
+            <q-item-section>
+              <q-item-label> I. Click the "Start Game" button </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-separator horizontal black />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >II. You will see written in a box: "type a word"</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-        <q-separator horizontal black />
+          <q-item clickable>
+            <q-item-section>
+              <q-item-label
+                >II. You will see written in a box: "type a word"</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+          <q-separator horizontal black />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >III. Add a word of your choosing into the box</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-        <q-separator horizontal black />
+          <q-item clickable>
+            <q-item-section>
+              <q-item-label
+                >III. Add a word of your choosing into the box</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+          <q-separator horizontal black />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >IV. Click the button "play" to start playing</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-        <q-separator horizontal black />
+          <q-item clickable>
+            <q-item-section>
+              <q-item-label
+                >IV. Click the button "play" to start playing</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+          <q-separator horizontal black />
 
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >V. Next, have a friend try to guess the word by adding letters
-              into the dashes</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
-    <q-img src="/imgs/catsssss.jpeg" class="cats" />
+          <q-item clickable>
+            <q-item-section>
+              <q-item-label
+                >V. Next, have a friend try to guess the word by adding letters
+                into the dashes</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
+    </div>
+    <q-img
+      src="/imgs/catsssss.jpeg"
+      width="30vw"
+      class="q-ml-xl q-mr-s q-mt-xl"
+    />
     <q-btn
       @click="startGame"
-      class="start"
+      class="bg-info text-white q-ml-xl q-mr-xl"
+      size="50px"
       push
       square
       label="Start Game"
     ></q-btn>
   </div>
-  <div v-if="showWordsection" class="column items-center">
+  <div v-if="showWordsection" class="column items-center q-mt-xl">
     <span>Add the word you're thinking</span>
     <q-input
-      class="word"
+      class="q-mt-md q-mb-lg word"
+      bg-color="negative"
       rounded
       standout
       type="text"
@@ -68,13 +80,13 @@
     />
     <q-btn
       @click="addToArray"
-      class="addWord"
-      :ripple="{ color: 'purple' }"
+      class="bg-info text-white q-mb-lg"
+      size="25px"
       push
-      square
+      rounded
       label="Play Game"
     />
-    <q-img src="/imgs/cat.jpeg" class="gamerCat" />
+    <q-img src="/imgs/cat.jpeg" class="rounded-borders" width="30vw" />
   </div>
   <div v-if="showGame">
     <span>You have 6 chances, good luck :)</span>
@@ -93,12 +105,13 @@
         minlength="1"
       />
       <q-btn
-        round
-        color="purple"
+        class="bg-info text-white q-mb-lg"
+        size="25px"
+        push
+        rounded
         glossy
         label="TRY"
         @click="playGame"
-        class="try"
       />
     </div>
     <span class="column items-center" v-if="chancesAmount"
@@ -111,10 +124,11 @@
     <span>The word I was thinking is: {{ rigthWord }}</span>
     <div v-if="playAgain">
       <q-btn
-        class="again"
-        @click="PlayAgain"
-        :ripple="{ color: 'purple' }"
+        class="bg-info text-white q-mb-lg"
+        size="25px"
         push
+        glossy
+        @click="PlayAgain"
         square
         label="Play Again"
       />
@@ -126,10 +140,11 @@
     <span>The word I was thinking is:{{ rigthWord }}</span>
     <div v-if="playAgain">
       <q-btn
-        @click="PlayAgain"
-        class="again"
-        :ripple="{ color: 'purple' }"
+        class="bg-info text-white q-mb-lg"
+        size="25px"
         push
+        glossy
+        @click="PlayAgain"
         square
         label="Play Again"
       />
@@ -306,7 +321,7 @@ span {
   font-size: 80px;
 }
 .title {
-  font-size: 100px;
+  font-size: 95px;
 }
 .letterInDashes {
   visibility: hidden;
@@ -316,29 +331,6 @@ span {
   margin: 3px;
   display: inline;
 }
-.rules {
-  background-color: #6618be;
-  color: white;
-  font-size: medium;
-  height: 60px;
-  float: left;
-  margin-left: 120px;
-}
-.items {
-  background-color: #bb84c6;
-  padding: 10px;
-}
-.items :hover {
-  background-color: #c6a1e9;
-}
-.cats {
-  width: 30vw;
-  margin-left: 50px;
-}
-.gamerCat {
-  width: 30vw;
-  text-align: center;
-}
 .happy {
   width: 30vw;
   text-align: center;
@@ -347,38 +339,11 @@ span {
   width: 30vw;
   text-align: center;
 }
-.before {
-  text-align: center;
-}
-.start {
-  background-color: #6618be;
-  color: white;
-  font-size: medium;
-  height: 60px;
-  float: right;
-  margin-right: 320px;
-}
-.addWord {
-  background-color: #482d61;
-  color: bisque;
-}
 .word {
   font-size: 20px;
 }
 .letter {
   font-size: 30px;
   width: 60px;
-}
-.again {
-  background-color: #6618be;
-  color: white;
-  font-size: medium;
-  height: 60px;
-}
-.try {
-  background-color: #6618be;
-  color: white;
-  font-size: medium;
-  height: 40px;
 }
 </style>
