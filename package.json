@@ -1,5 +1,5 @@
 {
-  "name": "curso-vue",
+  "name": "guess-the-word-game",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.2",
+    "axios": "^1.4.0",
+    "pinia": "^2.0.35",
     "quasar": "^2.11.10",
     "vue": "^3.2.47"
   },

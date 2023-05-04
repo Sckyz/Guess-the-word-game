@@ -1,7 +1,7 @@
 <template>
-  <BeforeStarts />
+  <HomePage />
 </template>
 
 <script setup>
-import BeforeStarts from "./components/beforeStarts.vue";
+import HomePage from "./components/HomePage.vue";
 </script>
