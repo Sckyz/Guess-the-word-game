@@ -1,7 +1,7 @@
 <template>
   <div v-if="box.all">
     <span class="row justify-center">Add The Word You're Thinking</span>
-    <MyInput v-model="wordField" class="inp" />
+    <MyInput v-model="wordField" class="input-text" />
     <MyImage src="../../public/imgs/GamerCat1.jpeg" class="q-ma-xl" />
     <MyButton @click="playGame(box)" label="Play Game" size="40px" />
     <MyImage src="../../public/imgs/GamerCat2.jpeg" class="q-ma-xl" />
@@ -62,7 +62,7 @@ span {
   font-size: 60px;
   text-align: center;
 }
-.inp {
+.input-text {
   text-transform: lowercase;
 }
 </style>

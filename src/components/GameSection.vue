@@ -1,8 +1,6 @@
 <template>
   <div v-if="box.all">
-    <span class="column items-center q-mt-lg"
-      >You have 6 chances, good luck :)</span
-    >
+    <span class="column items-center q-mt-lg">You have 6 chances, good luck :)</span>
     <div>
       <div class="row flex-center">
         <div class="dashes column items-center" v-for="letter in store.word">
@@ -10,13 +8,13 @@
         </div>
       </div>
       <div class="row flex-center">
-        <MyInput v-model="letterField" :maxlength="1" class="inp" />
+        <MyInput v-model="letterField" :maxlength="1" class="input-text" />
         <MyButton label="TRY" @click="tryLetter()" size="30px" />
       </div>
       <span class="column items-center">Chances left: {{ chances }}</span>
       <span class="column items-center">Wrong letters: {{ fails }}</span>
     </div>
-    <div class="img">
+    <div class="row flex-center">
       <MyImage src="../../public/imgs/PlayingCats.jpeg" class="q-ma-xl" />
     </div>
   </div>
@@ -141,11 +139,8 @@ span {
   margin: 3px;
   display: inline;
 }
-.inp {
+.input-text {
   width: 60px;
   text-transform: lowercase;
-}
-.img {
-  text-align: center;
 }
 </style>

@@ -21,10 +21,10 @@ import { useFailAttemptStore } from "../stores/FailAttemptStore";
 import { reactive } from "vue";
 import { playAgain } from "../helpers/index";
 
-const letters = useLetterStore();
 const tries = useTrieStore();
-const fails = useFailAttemptStore();
+const letters = useLetterStore();
 const spans = useSpanArrayStore();
+const fails = useFailAttemptStore();
 
 const box = reactive({
   div: true,
@@ -38,8 +38,8 @@ const box = reactive({
 
 <style scoped>
 .main {
-  height: 1000px;
-  width: 1830px;
+  height: 100vh;
+  width: 100vw;
 }
 span {
   font-size: 75px;
