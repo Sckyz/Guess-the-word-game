@@ -2,15 +2,14 @@
   <div v-if="box.all">
     <span class="row justify-center">Add The Word You're Thinking</span>
     <MyInput v-model="wordField" class="input-text" />
-    <MyImage src="../../public/imgs/GamerCat1.jpeg" class="q-ma-xl" />
+    <q-img class="rounded-borders q-ml-xl q-mr-lg" width="20vw" src="GamerCat1.jpeg"/>
     <MyButton @click="playGame(box)" label="Play Game" size="40px" />
-    <MyImage src="../../public/imgs/GamerCat2.jpeg" class="q-ma-xl" />
+    <q-img class="rounded-borders q-ml-xl q-mr-lg" width="20vw" src="GamerCat2.jpeg"/>
   </div>
   <GameSection v-if="box.game" />
 </template>
 
 <script setup>
-import MyImage from "./MyImage.vue";
 import MyInput from "./MyInput.vue";
 import MyButton from "./MyButton.vue";
 import GameSection from "./GameSection.vue";
@@ -50,7 +49,7 @@ function playGame(key) {
     cleanField(wordField);
     return;
   }
-  store.word = wordField.value.toLowerCase();
+  store.setValue(wordField.value.toLowerCase())
   letters.letter = store.word.split("");
   key.all = false;
   key.game = true;
@@ -60,9 +59,5 @@ function playGame(key) {
 <style scoped>
 span {
   font-size: 60px;
-  text-align: center;
-}
-.input-text {
-  text-transform: lowercase;
 }
 </style>

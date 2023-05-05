@@ -6,4 +6,9 @@ export const useWordStore = defineStore("WordStore", {
       word: "",
     };
   },
+  actions: {
+    setValue(value) {
+      this.word = value
+    }
+  },
 });

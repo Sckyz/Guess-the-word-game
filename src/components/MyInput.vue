@@ -1,7 +1,7 @@
 <template>
   <q-input
     model-value=""
-    class="q-ma-lg word"
+    class="q-ma-lg word	text-lowercase"
     bg-color="negative"
     rounded
     standout

@@ -15,7 +15,7 @@
       <span class="column items-center">Wrong letters: {{ fails }}</span>
     </div>
     <div class="row flex-center">
-      <MyImage src="../../public/imgs/PlayingCats.jpeg" class="q-ma-xl" />
+      <q-img class="rounded-borders q-ml-xl q-mr-lg" width="20vw" src="PlayingCats.jpeg"/>
     </div>
   </div>
   <GameOverLost v-if="box.lost" />
@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-import MyImage from "./MyImage.vue";
 import MyInput from "./MyInput.vue";
 import MyButton from "./MyButton.vue";
 import GameOverWin from "./GameOverWin.vue";
@@ -141,6 +140,5 @@ span {
 }
 .input-text {
   width: 60px;
-  text-transform: lowercase;
 }
 </style>

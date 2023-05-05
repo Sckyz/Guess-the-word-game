@@ -5,12 +5,12 @@ import "quasar/src/css/index.sass";
 import "@quasar/extras/material-icons/material-icons.css";
 import App from "./App.vue";
 
-const myApp = createApp(App);
+const pinia = createPinia();
 
-myApp.use(Quasar, {
-  plugins: { Notify },
-});
-
-myApp.use(createPinia());
+const myApp = createApp(App)
+  .use(Quasar, { 
+    plugins: { Notify } 
+  })
+  .use(pinia);
 
 myApp.mount("#app");

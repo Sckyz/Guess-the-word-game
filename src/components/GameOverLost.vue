@@ -3,14 +3,13 @@
     <span>Oh no! Good luck next time :(</span>
     <q-separator color="black" spaced />
     <WordAnswer />
-    <MyImage src="../../public/imgs/LostCat.jpeg" class="q-mt-xl" />
+    <q-img class="rounded-borders q-ml-xl q-mr-lg" width="20vw" src="LostCat.jpeg"/>
     <MyButton label="Play Again" size="30px" @click="playAgain(box)" />
   </div>
   <HomePage v-if="box.home" />
 </template>
 
 <script setup>
-import MyImage from "./MyImage.vue";
 import MyButton from "./MyButton.vue";
 import WordAnswer from "./WordAnswer.vue";
 import HomePage from "../components/HomePage.vue";
