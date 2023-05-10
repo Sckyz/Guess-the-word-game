@@ -5,9 +5,9 @@
 </template>
 
 <script setup>
-import { useWordStore } from "../stores/WordStore";
+import { useMyStores } from "../stores/MyStores";
 
-const store = useWordStore();
+const store = useMyStores();
 </script>
 
 <style scoped>
